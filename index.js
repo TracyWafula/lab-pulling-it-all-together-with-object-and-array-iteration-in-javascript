@@ -113,4 +113,92 @@ function gameObject() {
             },
         },
     };
+
+        
+
 }
+
+const currentGame = gameObject();
+const allTeams = [currentGame.home, currentGame.away];
+
+console.log(allTeams.length);
+
+//Retrieve Player information
+function numPointsScored(playerName){
+    for(let i=0; i < allTeams.length; i++){
+        const teamPoints = allTeams[i];
+        for(let player in teamPoints.players){ 
+            if(player === playerName){
+                return teamPoints.players[player].points;
+            }
+        }
+
+    }
+
+}
+
+function shoeSize(playerName){
+    for(let i=0; i < allTeams.length; i++){
+        const teamShoeSize = allTeams[i];
+        for(let player in teamShoeSize.players){ 
+            if(player === playerName){
+                return teamShoeSize.players[player].shoe;
+            }
+        }
+    }
+
+}
+
+//Retrieve Team Information 
+function teamColors(teamName){
+    for (let team of allTeams){ 
+        if (team.teamName === teamName){
+            return team.colors;
+        }
+
+    }
+}
+
+function teamNames(){
+    return allTeams.map(team => team.teamName);
+    
+}
+
+//Retrieve Player Numbers and Stats
+function playerNumbers(teamName){
+    for(let teamNum of allTeams){
+        if (teamNum.teamName === teamName){
+            return Object.values(teamNum.players).map(player => player.number);
+        }
+    }
+    
+    }
+
+function playerStats(playerName){
+    for(let i=0; i < allTeams.length; i++){
+        let teamStats = allTeams[i];
+        for(let player in teamStats.players){ 
+            if(player === playerName){
+                return teamStats.players[player];
+            }
+        }
+
+    }
+
+}
+
+function bigShoeRebounds(){
+   let allShoeSizes = allTeams.map(team => team.players.shoe);
+   let largestShoeSize = Math.max(...allShoeSizes);
+
+   return allTeams.find(team => team.players.shoe === largestShoeSize).players.rebounds;
+
+}
+
+
+
+
+
+
+
+
