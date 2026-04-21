@@ -121,7 +121,7 @@ function gameObject() {
 const currentGame = gameObject();
 const allTeams = [currentGame.home, currentGame.away];
 
-console.log(allTeams.length);
+//console.log(allTeams.length);
 
 //Retrieve Player information
 function numPointsScored(playerName){
@@ -188,12 +188,42 @@ function playerStats(playerName){
 }
 
 function bigShoeRebounds(){
-   let allShoeSizes = allTeams.map(team => team.players.shoe);
-   let largestShoeSize = Math.max(...allShoeSizes);
 
-   return allTeams.find(team => team.players.shoe === largestShoeSize).players.rebounds;
+//Retrieve  rebound of player with largest shoe size. 
+
+//Place all shoe sizes in one array
+let allShoeSizes = []
+
+    for(let i=0; i < allTeams.length; i++){
+        const teamshoeSizes = allTeams[i];
+        for(let playerName in teamshoeSizes.players){ 
+            const player = teamshoeSizes.players[playerName];
+            allShoeSizes.push(player.shoe);
+
+        }
+    }
+
+    //Loop through shoe sizes to find the largest shoe size
+    let largestsShoeSize=allShoeSizes[0];
+    for(let i=1;i<allShoeSizes.length;i++ ){
+        if(allShoeSizes[i]>largestsShoeSize){
+            largestsShoeSize=allShoeSizes[i]
+        }
+    }
+    //Get rebounds of player with largest shoe size
+    for (let i=0; i < allTeams.length; i++){{
+        const teamRebounds = allTeams[i];
+        for(let playerName in teamRebounds.players){ 
+            const player = teamRebounds.players[playerName];
+            if(player.shoe === largestsShoeSize){
+                return player.rebounds;
+            }
+        }       
+    }
 
 }
+}
+console.log(bigShoeRebounds());
 
 
 
